@@ -67,3 +67,23 @@ function Container.createLootItem(self, item)
 	end
 	return true
 end
+
+
+function Container.getPokeballsFromContainer(self)
+	local ret = {}
+		local size = self:getSize()
+		for i = size - 1, 0, -1 do
+			local item = self:getItem(i)
+			local pokename = getPokemonNameItem(item)
+			
+			if pokename ~= nil then
+				table.insert(ret, item)
+			elseif item:isContainer() then
+				local itemsInside = item:getPokeballs()
+				for i=0, #itemsInside do
+					table.insert(ret, itemsInside[i])
+				end
+			end
+		end
+	return ret
+end

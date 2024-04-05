@@ -3,5 +3,10 @@ function onLogout(player)
 	if nextUseStaminaTime[playerId] then
 		nextUseStaminaTime[playerId] = nil
 	end
+
+
+	doBackSummon(player)
+
+
 	return true
 end

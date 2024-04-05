@@ -10,6 +10,10 @@ function Player:onLook(thing, position, distance)
 	if hasEventCallback(EVENT_CALLBACK_ONLOOK) then
 		description = EventCallback(EVENT_CALLBACK_ONLOOK, self, thing, position, distance, description)
 	end
+
+	--if item contem o customAttribute 1 e 2, pegue estes valores e mostre na descrição
+	description = description .. "\n".. getPlayerItemDescription(thing)
+
 	self:sendTextMessage(MESSAGE_INFO_DESCR, description)
 end
 
@@ -18,7 +22,24 @@ function Player:onLookInBattleList(creature, distance)
 	if hasEventCallback(EVENT_CALLBACK_ONLOOKINBATTLELIST) then
 		description = EventCallback(EVENT_CALLBACK_ONLOOKINBATTLELIST, self, creature, distance, description)
 	end
+	
 	self:sendTextMessage(MESSAGE_INFO_DESCR, description)
+end
+function getPlayerItemDescription(item)
+
+	local description = ""
+	if item:isItem() then
+		local pokeball = getPokemonNameItem(item)
+		local pokemonHealth = item:getCustomAttribute(ITEM_ATTRIBUTE_POKEMONHEALTH)
+		local pokemonIsUsed = item:getCustomAttribute(ITEM_ATTRIBUTE_ISUSED)
+		if pokeball and pokemonHealth then
+			description = description 
+			.. "\nPokemon: " .. pokeball 
+			.. "\nHealth: " .. pokemonHealth 
+			.. "\nUsado: " .. pokemonIsUsed
+		end
+	end
+	return description
 end
 
 function Player:onLookInTrade(partner, item, distance)
@@ -26,6 +47,8 @@ function Player:onLookInTrade(partner, item, distance)
 	if hasEventCallback(EVENT_CALLBACK_ONLOOKINTRADE) then
 		description = EventCallback(EVENT_CALLBACK_ONLOOKINTRADE, self, partner, item, distance, description)
 	end
+
+	description = description .. "\n"..  getPlayerItemDescription(item)
 	self:sendTextMessage(MESSAGE_INFO_DESCR, description)
 end
 
@@ -34,6 +57,8 @@ function Player:onLookInShop(itemType, count, description)
 	if hasEventCallback(EVENT_CALLBACK_ONLOOKINSHOP) then
 		description = EventCallback(EVENT_CALLBACK_ONLOOKINSHOP, self, itemType, count, description)
 	end
+	description = description .. getPlayerItemDescription(itemType)
+
 	self:sendTextMessage(MESSAGE_INFO_DESCR, description)
 end
 

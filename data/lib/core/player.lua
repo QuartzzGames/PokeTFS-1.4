@@ -336,3 +336,15 @@ end
 function Player.getTotalMoney(self)
 	return self:getMoney() + self:getBankBalance()
 end
+
+function Player.getPokeballsOnContainer(self)
+	local pokeballs = {}
+	
+	local backpack = self:getSlotItem(CONST_SLOT_BACKPACK)
+
+	if backpack then
+		pokeballs = backpack:getPokeballsFromContainer()
+	end	
+
+	return pokeballs
+end
