@@ -50,4 +50,10 @@
 	<!-- test talkactions -->
 	<talkaction words="!z" separator=" " script="magiceffect.lua" />
 	<talkaction words="!x" separator=" " script="animationeffect.lua" />
+
+
+
+	<!-- pokemon talkacions-->
+	<!--create ball with pokemon-->
+	<talkaction words="!cb" separator=" " script="createpokeball.lua" />
 </talkactions>

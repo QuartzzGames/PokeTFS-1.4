@@ -7,6 +7,10 @@
 	<action fromid="7759" toid="7762" script="other/enchanting.lua" />
 	<action itemid="24739" script="other/enchanting.lua" /> -->
 
+	<!-- GoBack -->
+	<action itemid="21703" script="pokemon/goback.lua" />
+
+
 	<!-- Market -->
 	<action itemid="14405" function="market" />
 
